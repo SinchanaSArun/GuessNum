@@ -13,23 +13,20 @@ app.use(cors({
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuessNum");
 
-app.post('/login',(req,res)=>{
+app.post('/login',async (req,res)=>{
     const {email,password}=req.body;
     console.log(email)
     console.log(password)
     GuessNumModel.findOne({email:email})
     .then(user=>{
-        if(user){
-        if(user.password==password){
-res.data="success"          
-            console.log("success")
-        }else{
-            console.log("incorrect pass")
+        console.log(user)
+        if(user.password===password){
+            res.json(user)
         }
-    }else{
-        consolelog("no user")
-    }
-})
+        else{
+            res.json("failure")
+        }
+    })
 })
 
   
@@ -39,6 +36,18 @@ app.post('/register',(req,res)=>{
     .catch(err=>res.json(err))
 
 })
+
+app.post('/gameover',(req,res)=>{
+    GuessNumModel.findOneAndUpdate({
+        email:req.body.email
+    },{
+        highscore:req.body.highscore,
+        score:req.body.score
+    })
+    .then(GuessNum=>res.json(GuessNum))
+    .catch(err=>res.json(err))
+})
+
 app.listen(3001,()=>{
     console.log('serveer is running')
 })

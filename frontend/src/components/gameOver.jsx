@@ -1,10 +1,11 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import './gameover.css'; 
+import './gameOver.css'; 
+import {highscore, score} from './login'
 
 const GameOver = () => {
-    const location = useLocation();
-    const { score } = location.state || { score: 0 }; 
+    
+    // axios.post('http://localhost:3001/gameover',{highscore,score})
 
     return (
         <div className="gameover-page">

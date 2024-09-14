@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import './Navbar.css';
+import './navbar.css';
 import Register from './register';
 import logo from '../assets/GuessNum logo.png'; 
 import { Link } from 'react-router-dom';

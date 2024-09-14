@@ -6,9 +6,12 @@ import axios from 'axios';
 
 
 
+
 function Login(){
   const[email,setEmail]=useState('')
   const[password,setPassword]=useState('')
+  const[highscore,setHighscore]=useState('')
+  const[score,setScore]=useState('')
   const navigate=useNavigate()
   axios.defaults.withCredentials = true;
  
@@ -17,9 +20,13 @@ function Login(){
     e.preventDefault()
     axios.post('http://localhost:3001/login',{email,password})
     .then(result=>{
-      console.log(result)
-      if(result.data==="success"){
-
+      if(result.data==="failure"){
+        alert('Invalid email or password')
+      }
+      else{
+        console.log(result.data)
+        setHighscore(result.data.highscore)
+        setScore(result.data.score)
         navigate('/game')
       }
     })
